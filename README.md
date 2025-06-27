@@ -35,7 +35,7 @@ Running Tests
 
     Via Maven:
 
-    mvn test -DsuiteXmlFile=testng.xml
+    mvn clean test
 
     From IntelliJ/Eclipse:
     Right-click testng.xml and select Run.
