@@ -27,7 +27,7 @@ Configure TestNG Parameters:
 Edit testng.xml for browser and headless mode parameters:
 
     <parameter name="browser" value="chrome"/>
-    <parameter name="headless" value="false"/>
+    <parameter name="headless" value="true"/>
 
 Running Tests
 
