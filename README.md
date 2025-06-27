@@ -1,5 +1,6 @@
 #EPAM-TA-Final-Task
-SauceDemo Login Test Automation
+
+#SauceDemo Login Test Automation
 
 This project automates the login functionality tests for the SauceDemo website. It verifies common login scenarios such as successful login, invalid login, and handling empty credentials.
 Prerequisites
