@@ -17,8 +17,6 @@ Setup
 
     Clone the Repository: https://github.com/kostic-mladen/EPAM-TA-Final-Task.git
 
-git clone https://github.com/yourusername/saucedemo-login-tests.git
-
 Install Dependencies:
 Run mvn install to download the necessary dependencies.
 
