@@ -1,11 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<suite name="Test Suite" parallel="tests" thread-count="2">
+<suite name="SauceDemo Login Test Suite">
     <test name="Login Tests - Chrome">
         <parameter name="browser" value="chrome"/>
-        <parameter name="headless" value="false"/>
+        <parameter name="headless" value="true"/>
         <classes>
             <class name="Tests.LoginTest"/>
-            <class name="Data.DataProviderTests"/>
         </classes>
     </test>
 
@@ -14,7 +13,6 @@
         <parameter name="headless" value="true"/>
         <classes>
             <class name="Tests.LoginTest"/>
-            <class name="Data.DataProviderTests"/>
         </classes>
     </test>
 </suite>

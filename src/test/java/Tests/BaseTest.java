@@ -1,16 +1,16 @@
 package Tests;
 
 import Config.Config;
-import org.testng.annotations.BeforeClass;
-import org.testng.annotations.AfterClass;
-import org.testng.annotations.Parameters;
+import org.testng.annotations.*;
 import Utils.LoggerUtils;
+
+import static Config.Config.driver;
 
 public class BaseTest {
 
     @BeforeClass
     @Parameters({"browser", "headless"})
-    public void setUpClass(String browser, String headless) {
+    public void setUpClass(@Optional("chrome") String browser, @Optional("false") String headless) {
         if (browser == null || browser.isEmpty()) {
             throw new IllegalArgumentException("Browser parameter cannot be null or empty.");
         }
@@ -22,12 +22,25 @@ public class BaseTest {
 
         // Setup the browser and initialize WebDriver
         Config.setUp(browser, isHeadless);
+        // Clears all cookies in the current browser session
+        driver.manage().deleteAllCookies();
+
+    }
+
+
+    @DataProvider
+    public static Object[][] loginRandomCredentials() {
+        return new Object[][]{
+                {"RandomUser", "RandomPass"}
+        };
     }
 
     @AfterClass
     public void tearDownClass() {
         // Log browser session teardown
         LoggerUtils.logInfo("Closing browser session.");
+        // Clears all cookies in the current browser session
+        driver.manage().deleteAllCookies();
         Config.tearDown();
     }
 }
