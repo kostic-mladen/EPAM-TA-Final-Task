@@ -1,1 +1,50 @@
-# EPAM-TA-Final-Task
+#EPAM-TA-Final-Task
+SauceDemo Login Test Automation
+
+This project automates the login functionality tests for the SauceDemo website. It verifies common login scenarios such as successful login, invalid login, and handling empty credentials.
+Prerequisites
+
+    Java 17+
+
+    Maven
+
+    Selenium WebDriver
+
+    TestNG
+
+Setup
+
+    Clone the Repository: https://github.com/kostic-mladen/EPAM-TA-Final-Task.git
+
+git clone https://github.com/yourusername/saucedemo-login-tests.git
+
+Install Dependencies:
+Run mvn install to download the necessary dependencies.
+
+WebDriver Setup:
+The WebDriver manager will handle downloading the required browser drivers (ChromeDriver, GeckoDriver).
+
+Configure TestNG Parameters:
+Edit testng.xml for browser and headless mode parameters:
+
+    <parameter name="browser" value="chrome"/>
+    <parameter name="headless" value="false"/>
+
+Running Tests
+
+    Via Maven:
+
+    mvn test -DsuiteXmlFile=testng.xml
+
+    From IntelliJ/Eclipse:
+    Right-click testng.xml and select Run.
+
+Test Case (UC-1): Test Login with Empty Credentials
+
+    Enter any credentials.
+
+    Clear both fields (Username and Password).
+
+    Hit the Login button.
+
+    Verify the error message "Username is required".
