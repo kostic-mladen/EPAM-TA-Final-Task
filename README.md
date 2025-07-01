@@ -17,8 +17,6 @@ Setup
 
     Clone the Repository: https://github.com/kostic-mladen/EPAM-TA-Final-Task.git
 
-git clone https://github.com/yourusername/saucedemo-login-tests.git
-
 Install Dependencies:
 Run mvn install to download the necessary dependencies.
 
@@ -29,7 +27,7 @@ Configure TestNG Parameters:
 Edit testng.xml for browser and headless mode parameters:
 
     <parameter name="browser" value="chrome"/>
-    <parameter name="headless" value="false"/>
+    <parameter name="headless" value="true"/>
 
 Running Tests
 
