@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<suite name="SauceDemo Login Test Suite">
+<suite name="SauceDemo Login Test Suite" parallel="tests" thread-count="2">
     <test name="Login Tests - Chrome">
         <parameter name="browser" value="chrome"/>
         <parameter name="headless" value="true"/>
@@ -7,10 +7,9 @@
             <class name="Tests.LoginTest"/>
         </classes>
     </test>
-
     <test name="Login Tests - Firefox">
         <parameter name="browser" value="firefox"/>
-        <parameter name="headless" value="true"/>
+        <parameter name="headless" value="false"/>
         <classes>
             <class name="Tests.LoginTest"/>
         </classes>

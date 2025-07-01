@@ -10,7 +10,7 @@ public class BaseTest {
 
     @BeforeClass
     @Parameters({"browser", "headless"})
-    public void setUpClass(@Optional("chrome") String browser, @Optional("false") String headless) {
+    public void setUpClass(@Optional("chrome") String browser, @Optional("true") String headless) {
         if (browser == null || browser.isEmpty()) {
             throw new IllegalArgumentException("Browser parameter cannot be null or empty.");
         }
@@ -20,7 +20,7 @@ public class BaseTest {
         // Log the browser initialization details
         LoggerUtils.logInfo("Initializing browser: " + browser + " in " + (isHeadless ? "headless" : "non-headless") + " mode.");
 
-        // Setup the browser and initialize WebDriver
+        // set up the browser and initialize WebDriver
         Config.setUp(browser, isHeadless);
         // Clears all cookies in the current browser session
         driver.manage().deleteAllCookies();
@@ -34,6 +34,14 @@ public class BaseTest {
                 {"RandomUser", "RandomPass"}
         };
     }
+
+    @DataProvider
+    public static Object[][] loginValidCredentials() {
+        return new Object[][]{
+                {"standard_user", "secret_sauce"}
+        };
+    }
+
 
     @AfterClass
     public void tearDownClass() {

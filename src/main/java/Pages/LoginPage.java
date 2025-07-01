@@ -2,9 +2,8 @@ package Pages;
 
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.FindBy;
-
-import java.util.Objects;
 
 public class LoginPage extends BasePage {
 
@@ -32,18 +31,19 @@ public class LoginPage extends BasePage {
         passwordField.sendKeys(password);
     }
 
-    public void clearInputs() {
+    public void clearUsername() {
         usernameField.clear();
+    }
+    public void clearPassword() {
         passwordField.clear();
     }
 
     public String getErrorMessage() {
         return errorMessage.getText();
     }
-    public void clickLoginButton() {
-
-        if (Objects.requireNonNull(usernameField.getAttribute("value")).isEmpty() && Objects.requireNonNull(passwordField.getAttribute("value")).isEmpty()) {
-            loginButton.click();
-        }
+    public void performClick(WebElement element) {
+        Actions action = new Actions(driver);
+        action.moveToElement(element).click().perform();
     }
+
 }
