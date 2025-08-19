@@ -13,7 +13,7 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
 
-        <!-- Koristi bar Javu 11; preporuka 17 -->
+        <!-- Java version -->
         <maven.compiler.source>17</maven.compiler.source>
         <maven.compiler.target>17</maven.compiler.target>
 
@@ -47,19 +47,11 @@
             <version>${slf4j.version}</version>
         </dependency>
 
-        <!-- SLF4J Simple binding (dovoljno za test logove) -->
+        <!-- SLF4J -->
         <dependency>
             <groupId>org.slf4j</groupId>
             <artifactId>slf4j-simple</artifactId>
             <version>${slf4j.version}</version>
-            <scope>test</scope>
-        </dependency>
-
-        <!-- AssertJ (opciono) -->
-        <dependency>
-            <groupId>org.assertj</groupId>
-            <artifactId>assertj-core</artifactId>
-            <version>3.25.3</version>
             <scope>test</scope>
         </dependency>
 
@@ -73,7 +65,7 @@
 
     <build>
         <plugins>
-            <!-- KOMPILATOR: Java 17 -->
+            <!-- Java 17 -->
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
@@ -86,7 +78,7 @@
                 </configuration>
             </plugin>
 
-            <!-- SUREFIRE: eksplicitno koristi testng.xml na KORENU projekta -->
+            <!-- SUREFIRE -->
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-surefire-plugin</artifactId>
