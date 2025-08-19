@@ -1,0 +1,7 @@
+Pages\ProductPage.class
+Utils\LoggerUtils.class
+Utils\ConfigReader.class
+Config\Config.class
+Pages\LoginPage.class
+Pages\BasePage.class
+Config\Config$Browser.class

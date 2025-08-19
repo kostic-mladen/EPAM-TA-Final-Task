@@ -1,69 +1,68 @@
 #EPAM-TA-Final-Task
 
-#SauceDemo Login Test Automation
+# Selenium Test Automation Framework
 
-This project automates the login functionality tests for the SauceDemo website. It verifies common login scenarios such as successful login, invalid login, and handling empty credentials.
-Prerequisites
+This project is a **Test Automation Framework** built with **Java**, **Selenium WebDriver**, **TestNG**, and **Maven**.  
+It follows the **Page Object Model (POM)** design pattern for better readability, maintainability, and scalability.
+---
+## ⚙️ Prerequisites
 
-    Java 17+
+- Java JDK 8+
+- Maven 3.6+
+- IntelliJ IDEA / Eclipse (recommended IDE)
+- Git (optional)
+---
+###  Clone Repository
+```bash
+git clone https://github.com/kostic-mladen/EPAM-TA-Final-Task.git
+cd EPAM-TA-Final-Task
 
-    Maven
+## 📦 Install Dependencies
 
-    Selenium WebDriver
+Run the following command to download all dependencies:
 
-    TestNG
+```bash
+mvn install
 
-Setup
+The WebDriverManager library will automatically handle downloading required browser drivers (ChromeDriver, GeckoDriver).
 
-    Clone the Repository: https://github.com/kostic-mladen/EPAM-TA-Final-Task.git
+Supported browsers:
 
-Install Dependencies:
-Run mvn install to download the necessary dependencies.
+chrome
+firefox
 
-WebDriver Setup:
-The WebDriver manager will handle downloading the required browser drivers (ChromeDriver, GeckoDriver).
+▶️ Running Tests
+Using Maven:
+mvn clean test
 
-Configure TestNG Parameters:
-Edit testng.xml for browser and headless mode parameters:
+From IntelliJ/Eclipse:
 
-    <parameter name="browser" value="chrome"/>
-    <parameter name="headless" value="true"/>
+Right-click on testng.xml
 
-Running Tests
+Select Run
 
-    Via Maven:
+✅ Test Cases
 
-    mvn clean test
+UC-1: Test Login with Empty Credentials
+Enter any credentials.
+Clear both fields (Username and Password).
+Hit the Login button.
+Verify the error message → "Username is required".
 
-    From IntelliJ/Eclipse:
-    Right-click testng.xml and select Run.
+UC-2: Test Login with Missing Password
+Enter a valid Username.
+Enter a Password.
+Clear the Password field.
+Hit the Login button.
+Verify the error message → "Password is required".
 
-Test Case (UC-1): Test Login with Empty Credentials
+UC-3: Test Login with Valid Credentials
+Enter valid username → from Accepted usernames section.
+Enter password → "secret_sauce".
+Click on Login.
+Validate the dashboard title → "Swag Labs".
 
-    Enter any credentials.
+📌 Notes
 
-    Clear both fields (Username and Password).
-
-    Hit the Login button.
-
-    Verify the error message "Username is required".
-
-UC-2: Test Login Form with Credentials by Passing Username
-
-    Type any credentials into the "Username" field.
-
-    Enter a password.
-
-    Clear the "Password" input.
-
-    Hit the "Login" button.
-
-    Check the error messages: "Password is required."
-
-UC-3: Test Login form with credentials bypassing Username & Password
-
-    Type credentials in username which are under Accepted username are sections.
-
-    Enter password as secret sauce.
-
-    Click on Login and validate the title "Swag Labs" in the dashboard.
+Parallel execution is supported via TestNG.
+Page Object Model ensures separation of Page Actions and Test Logic.

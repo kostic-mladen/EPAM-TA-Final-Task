@@ -5,45 +5,58 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.FindBy;
 
+/**
+ * Page Object for the SauceDemo login page.
+ * Encapsulates element access behind intent-revealing methods.
+ */
 public class LoginPage extends BasePage {
 
+    // Keeping elements private encourages using methods instead of direct access
     @FindBy(css = "#user-name")
-    public WebElement usernameField;
+    private WebElement usernameField;
 
     @FindBy(css = "#password")
-    public WebElement passwordField;
+    private WebElement passwordField;
 
     @FindBy(css = "#login-button")
-    public WebElement loginButton;
+    private WebElement loginButton;
 
     @FindBy(css = ".error-message-container")
-    public WebElement errorMessage;
+    private WebElement errorMessage;
 
     public LoginPage(WebDriver driver) {
-        super(driver);  // Call BasePage constructor to initialize driver
+        super(driver);
     }
 
-    public void enterUsername(String username) {
+    /** Type username (clears first for safety). */
+    public void typeUsername(String username) {
+        usernameField.clear();
         usernameField.sendKeys(username);
     }
 
-    public void enterPassword(String password) {
+    /** Type password (clears first for safety). */
+    public void typePassword(String password) {
+        passwordField.clear();
         passwordField.sendKeys(password);
     }
 
+    /** Click the Login button (with a small move-to for stability). */
+    public void clickLogin() {
+        new Actions(driver).moveToElement(loginButton).click().perform();
+    }
+
+    /** Clear username field. */
     public void clearUsername() {
         usernameField.clear();
     }
+
+    /** Clear password field. */
     public void clearPassword() {
         passwordField.clear();
     }
 
-    public String getErrorMessage() {
+    /** Get the error message text if present/visible. */
+    public String getErrorMessageText() {
         return errorMessage.getText();
     }
-    public void performClick(WebElement element) {
-        Actions action = new Actions(driver);
-        action.moveToElement(element).click().perform();
-    }
-
 }
