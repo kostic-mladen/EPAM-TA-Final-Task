@@ -26,7 +26,6 @@ jobs:
           restore-keys: |
             maven-${{ runner.os }}-
 
-      # Tvoji testovi preko @Factory traže oba browsera
       - name: Install Chrome
         uses: browser-actions/setup-chrome@v1
 

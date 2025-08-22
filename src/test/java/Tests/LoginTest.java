@@ -2,6 +2,8 @@ package Tests;
 
 import Pages.ProductPage;
 import Utils.LoggerUtils;
+import org.openqa.selenium.support.ui.ExpectedCondition;
+import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.testng.Assert;
 import org.testng.annotations.Factory;
 import org.testng.annotations.Test;
@@ -15,6 +17,8 @@ public class LoginTest extends BaseTest {
 
     public LoginTest(String browser, boolean headless) { super(browser, headless); }
 
+    public void wait(ExpectedCondition<Boolean> booleanExpectedCondition) {
+    }
     @Factory
     public static Object[] browsersFactory() {
         return new Object[]{
@@ -31,6 +35,7 @@ public class LoginTest extends BaseTest {
         loginPage.typePassword(password);
         loginPage.clearWithKeys(loginPage.getUsernameField());
         loginPage.clearWithKeys(loginPage.getPasswordField());
+        wait(ExpectedConditions.titleIs(String.valueOf(loginPage.text)));
         loginPage.clickLogin();
 
         Assert.assertTrue(loginPage.getErrorMessageText().contains("Username is required"),
@@ -45,6 +50,7 @@ public class LoginTest extends BaseTest {
         loginPage.typeUsername(username);
         loginPage.typePassword(password);
         loginPage.clearWithKeys(loginPage.getPasswordField());
+        wait(ExpectedConditions.titleIs(String.valueOf(loginPage.text)));
         loginPage.clickLogin();
 
         Assert.assertTrue(loginPage.getErrorMessageText().contains("Password is required"),

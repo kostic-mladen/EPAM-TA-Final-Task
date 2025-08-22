@@ -5,12 +5,17 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.FindBy;
+import org.openqa.selenium.support.ui.WebDriverWait;
+
+import java.time.Duration;
 
 /**
  * Page Object for the SauceDemo login page.
  * Encapsulates element access behind intent-revealing methods.
  */
 public class LoginPage extends BasePage {
+
+    public WebDriverWait wait;
 
     // Keeping elements private encourages using methods instead of direct access
     @FindBy(css = "#user-name")
@@ -27,7 +32,11 @@ public class LoginPage extends BasePage {
 
     public LoginPage(WebDriver driver) {
         super(driver);
+        this.wait = new WebDriverWait(driver, Duration.ofSeconds(5));
     }
+
+    public String text = "required";
+
 
     public WebElement getUsernameField() {
         return usernameField;
