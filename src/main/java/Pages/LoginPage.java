@@ -1,5 +1,6 @@
 package Pages;
 
+import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
@@ -28,9 +29,25 @@ public class LoginPage extends BasePage {
         super(driver);
     }
 
+    public WebElement getUsernameField() {
+        return usernameField;
+    }
+
+    public WebElement getPasswordField() {
+        return passwordField;
+    }
+
+    /** Clear username and password fields. */
+    public void clearWithKeys(WebElement element) {
+        element.click();
+        element.sendKeys(Keys.CONTROL + "a");
+        element.sendKeys(Keys.DELETE);
+    }
+
     /** Type username (clears first for safety). */
     public void typeUsername(String username) {
         usernameField.clear();
+        new Actions(driver).moveToElement(usernameField).click().perform();
         usernameField.sendKeys(username);
     }
 
@@ -38,21 +55,12 @@ public class LoginPage extends BasePage {
     public void typePassword(String password) {
         passwordField.clear();
         passwordField.sendKeys(password);
+        new Actions(driver).moveToElement(usernameField).click().perform();
     }
 
     /** Click the Login button (with a small move-to for stability). */
     public void clickLogin() {
         new Actions(driver).moveToElement(loginButton).click().perform();
-    }
-
-    /** Clear username field. */
-    public void clearUsername() {
-        usernameField.clear();
-    }
-
-    /** Clear password field. */
-    public void clearPassword() {
-        passwordField.clear();
     }
 
     /** Get the error message text if present/visible. */

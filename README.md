@@ -13,15 +13,14 @@ It follows the **Page Object Model (POM)** design pattern for better readability
 - Git (optional)
 ---
 ###  Clone Repository
-```bash
+
 git clone https://github.com/kostic-mladen/EPAM-TA-Final-Task.git
-cd EPAM-TA-Final-Task
 
 ## 📦 Install Dependencies
 
 Run the following command to download all dependencies:
 
-```bash
+
 mvn install
 
 The WebDriverManager library will automatically handle downloading required browser drivers (ChromeDriver, GeckoDriver).

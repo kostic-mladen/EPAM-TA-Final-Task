@@ -1,0 +1,54 @@
+name: UI Tests
+
+on:
+  push:
+  pull_request:
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up Java
+        uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: '17'
+
+      - name: Cache Maven repo
+        uses: actions/cache@v4
+        with:
+          path: ~/.m2/repository
+          key: maven-${{ runner.os }}-${{ hashFiles('**/pom.xml') }}
+          restore-keys: |
+            maven-${{ runner.os }}-
+
+      # Tvoji testovi preko @Factory traže oba browsera
+      - name: Install Chrome
+        uses: browser-actions/setup-chrome@v1
+
+      - name: Install Firefox
+        uses: browser-actions/setup-firefox@v1
+
+      - name: Run TestNG suite (chrome+firefox headless via @Factory)
+        run: mvn -B -q test
+
+      - name: Upload surefire XML reports
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: surefire-reports
+          path: target/surefire-reports
+
+      - name: Upload TestNG HTML (if generated)
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: testng-html
+          path: |
+            test-output
+            **/test-output
+          if-no-files-found: ignore
