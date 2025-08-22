@@ -1,4 +1,4 @@
-#EPAM-TA-Final-Task
+# EPAM-TA-Final-Task
 
 # Selenium Test Automation Framework
 
@@ -65,3 +65,34 @@ Validate the dashboard title → "Swag Labs".
 
 Parallel execution is supported via TestNG.
 Page Object Model ensures separation of Page Actions and Test Logic.
+
+## CI status
+
+[![UI Tests](https://github.com/kostic-mladen/EPAM-TA-Final-Task/actions/workflows/ui-tests.yml/badge.svg?branch=main)](https://github.com/kostic-mladen/EPAM-TA-Final-Task/actions/workflows/ui-tests.yml)
+
+This repository uses **GitHub Actions** to run Selenium/TestNG UI tests on every **push** and **pull request**.
+
+**Workflow:** `.github/workflows/ui-tests.yml`
+
+### What the workflow does
+- Checks out the repo
+- Sets up **Temurin Java 21**
+- Caches the **Maven** repository for faster runs
+- Installs **Chrome** and **Firefox** on `ubuntu-latest`
+- Runs the TestNG suite via `mvn -B -q test`  
+  *(Surefire picks up `src/test/resources/testing.xml`)*
+- Uploads artifacts:
+    - `target/surefire-reports` (JUnit XML)
+    - `test-output` (TestNG HTML), if present
+
+### Browsers / parallelism
+- Tests run **headless** in **Chrome** and **Firefox** via TestNG `@Factory` (parallel instances).
+
+### Viewing results
+- Go to **Actions → UI Tests → latest run**
+- See the **Summary** for pass/fail and timing
+- Download **Artifacts**: `surefire-reports` and `testng-html`
+
+### Local run (before pushing)
+```bash
+mvn -B test
