@@ -1,5 +1,6 @@
 package Pages;
 
+import org.openqa.selenium.By;
 import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -16,7 +17,7 @@ import java.time.Duration;
  */
 public class LoginPage extends BasePage {
 
-    public WebDriverWait wait;
+    private final WebDriverWait wait;
 
     // Keeping elements private encourages using methods instead of direct access
     @FindBy(css = "#user-name")
@@ -31,27 +32,26 @@ public class LoginPage extends BasePage {
     @FindBy(css = ".error-message-container")
     private WebElement errorMessage;
 
+    private final By errorBoxBy = By.cssSelector("[data-test='error'], .error-message-container");
+
     public LoginPage(WebDriver driver) {
         super(driver);
         this.wait = new WebDriverWait(driver, Duration.ofSeconds(10));
     }
 
-    public String text = "required";
+    public WebElement getUsernameField() { return usernameField; }
+    public WebElement getPasswordField() { return passwordField; }
 
-
-    public WebElement getUsernameField() {
-        return usernameField;
-    }
-
-    public WebElement getPasswordField() {
-        return passwordField;
-    }
-
-    /** Clear username and password fields. */
+    /** Clear input stabilno: CTRL+A + DELETE, čekaj value=="" pa blur (TAB). */
     public void clearWithKeys(WebElement element) {
         element.click();
-        element.sendKeys(Keys.CONTROL + "a");
+        element.sendKeys(Keys.chord(Keys.CONTROL, "a"));
         element.sendKeys(Keys.DELETE);
+
+        new WebDriverWait(driver, Duration.ofSeconds(5))
+                .until(d -> "".equals(element.getAttribute("value")));
+
+        element.sendKeys(Keys.TAB); // blur da JS registruje promenu
     }
 
     /** Type username (clears first for safety). */
@@ -65,6 +65,7 @@ public class LoginPage extends BasePage {
     public void typePassword(String password) {
         passwordField.clear();
         passwordField.sendKeys(password);
+
         new Actions(driver).moveToElement(usernameField).click().perform();
     }
 
@@ -73,13 +74,16 @@ public class LoginPage extends BasePage {
         new Actions(driver).moveToElement(loginButton).click().perform();
     }
 
-    /** Get the error message text if present/visible. */
+    /** Get the error message text (uz eksplicitni wait preko By). */
     public String getErrorMessageText() {
-        return errorMessage.getText();
+        WebElement box = wait.until(ExpectedConditions.visibilityOfElementLocated(errorBoxBy));
+        return box.getText();
     }
+
     public void clickLoginAndWaitError(String expectedText) {
         loginButton.click();
-        wait.until(ExpectedConditions.visibilityOf(errorMessage));
-        wait.until(ExpectedConditions.textToBePresentInElement(errorMessage, expectedText));
+        wait.until(ExpectedConditions.presenceOfElementLocated(errorBoxBy));
+        wait.until(ExpectedConditions.visibilityOfElementLocated(errorBoxBy));
+        wait.until(ExpectedConditions.textToBePresentInElementLocated(errorBoxBy, expectedText));
     }
 }

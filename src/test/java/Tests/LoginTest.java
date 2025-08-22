@@ -3,7 +3,6 @@ package Tests;
 import Pages.ProductPage;
 import Utils.LoggerUtils;
 import org.openqa.selenium.support.ui.ExpectedCondition;
-import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.testng.Assert;
 import org.testng.annotations.Factory;
 import org.testng.annotations.Test;
@@ -22,7 +21,7 @@ public class LoginTest extends BaseTest {
     @Factory
     public static Object[] browsersFactory() {
         return new Object[]{
-                new LoginTest("chrome", false),
+                new LoginTest("chrome", true),
                 new LoginTest("firefox", true)
         };
     }
@@ -35,11 +34,10 @@ public class LoginTest extends BaseTest {
         loginPage.typePassword(password);
         loginPage.clearWithKeys(loginPage.getUsernameField());
         loginPage.clearWithKeys(loginPage.getPasswordField());
-        wait(ExpectedConditions.titleIs(String.valueOf(loginPage.text)));
-        loginPage.clickLoginAndWaitError("Username is required");
+        loginPage.clickLoginAndWaitError("Epic sadface: Username is required");
 
         Assert.assertTrue(loginPage.getErrorMessageText().contains("Username is required"),
-                "Error message should contain 'Epic sadface: Username is required'");
+                "Error message should contain 'Username is required'");
     }
 
     @Test(dataProvider = "loginRandomCredentials")
@@ -50,11 +48,10 @@ public class LoginTest extends BaseTest {
         loginPage.typeUsername(username);
         loginPage.typePassword(password);
         loginPage.clearWithKeys(loginPage.getPasswordField());
-        wait(ExpectedConditions.titleIs(String.valueOf(loginPage.text)));
         loginPage.clickLoginAndWaitError("Epic sadface: Password is required");
 
         Assert.assertTrue(loginPage.getErrorMessageText().contains("Password is required"),
-                "Error message should contain 'Password is required'");
+                "Error message should contain 'Epic sadface: Password is required'");
     }
 
     @Test(dataProvider = "loginValidCredentials")
