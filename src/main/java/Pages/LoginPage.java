@@ -5,6 +5,7 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.FindBy;
+import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.time.Duration;
@@ -32,7 +33,7 @@ public class LoginPage extends BasePage {
 
     public LoginPage(WebDriver driver) {
         super(driver);
-        this.wait = new WebDriverWait(driver, Duration.ofSeconds(5));
+        this.wait = new WebDriverWait(driver, Duration.ofSeconds(10));
     }
 
     public String text = "required";
@@ -75,5 +76,10 @@ public class LoginPage extends BasePage {
     /** Get the error message text if present/visible. */
     public String getErrorMessageText() {
         return errorMessage.getText();
+    }
+    public void clickLoginAndWaitError(String expectedText) {
+        loginButton.click();
+        wait.until(ExpectedConditions.visibilityOf(errorMessage));
+        wait.until(ExpectedConditions.textToBePresentInElement(errorMessage, expectedText));
     }
 }

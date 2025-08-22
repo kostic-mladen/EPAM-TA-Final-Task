@@ -22,7 +22,7 @@ public class LoginTest extends BaseTest {
     @Factory
     public static Object[] browsersFactory() {
         return new Object[]{
-                new LoginTest("chrome", true),
+                new LoginTest("chrome", false),
                 new LoginTest("firefox", true)
         };
     }
@@ -36,10 +36,10 @@ public class LoginTest extends BaseTest {
         loginPage.clearWithKeys(loginPage.getUsernameField());
         loginPage.clearWithKeys(loginPage.getPasswordField());
         wait(ExpectedConditions.titleIs(String.valueOf(loginPage.text)));
-        loginPage.clickLogin();
+        loginPage.clickLoginAndWaitError("Username is required");
 
         Assert.assertTrue(loginPage.getErrorMessageText().contains("Username is required"),
-                "Error message should contain 'Username is required'");
+                "Error message should contain 'Epic sadface: Username is required'");
     }
 
     @Test(dataProvider = "loginRandomCredentials")
@@ -51,7 +51,7 @@ public class LoginTest extends BaseTest {
         loginPage.typePassword(password);
         loginPage.clearWithKeys(loginPage.getPasswordField());
         wait(ExpectedConditions.titleIs(String.valueOf(loginPage.text)));
-        loginPage.clickLogin();
+        loginPage.clickLoginAndWaitError("Epic sadface: Password is required");
 
         Assert.assertTrue(loginPage.getErrorMessageText().contains("Password is required"),
                 "Error message should contain 'Password is required'");
