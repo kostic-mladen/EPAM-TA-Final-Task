@@ -19,6 +19,8 @@ public class LoginPage extends BasePage {
 
     private final WebDriverWait wait;
 
+    Actions action = new Actions(driver);
+
     // Keeping elements private encourages using methods instead of direct access
     @FindBy(css = "#user-name")
     private WebElement usernameField;
@@ -32,6 +34,10 @@ public class LoginPage extends BasePage {
     @FindBy(css = ".error-message-container")
     private WebElement errorMessage;
 
+    public void clickLoginButton(){
+        action.moveToElement(loginButton).click().perform();
+    }
+
     private final By errorBoxBy = By.cssSelector("[data-test='error'], .error-message-container");
 
     public LoginPage(WebDriver driver) {
@@ -39,8 +45,10 @@ public class LoginPage extends BasePage {
         this.wait = new WebDriverWait(driver, Duration.ofSeconds(10));
     }
 
-    public WebElement getUsernameField() { return usernameField; }
-    public WebElement getPasswordField() { return passwordField; }
+    public WebElement getUsernameField() {
+        return usernameField; }
+    public WebElement getPasswordField() {
+        return passwordField; }
 
     /** Clear input stabilno: CTRL+A + DELETE, čekaj value=="" pa blur (TAB). */
     public void clearWithKeys(WebElement element) {
@@ -51,7 +59,7 @@ public class LoginPage extends BasePage {
         new WebDriverWait(driver, Duration.ofSeconds(5))
                 .until(d -> "".equals(element.getAttribute("value")));
 
-        element.sendKeys(Keys.TAB); // blur da JS registruje promenu
+        element.sendKeys(Keys.TAB);
     }
 
     /** Type username (clears first for safety). */
@@ -80,8 +88,7 @@ public class LoginPage extends BasePage {
         return box.getText();
     }
 
-    public void clickLoginAndWaitError(String expectedText) {
-        loginButton.click();
+    public void waitAnErrorMessage(String expectedText) {
         wait.until(ExpectedConditions.presenceOfElementLocated(errorBoxBy));
         wait.until(ExpectedConditions.visibilityOfElementLocated(errorBoxBy));
         wait.until(ExpectedConditions.textToBePresentInElementLocated(errorBoxBy, expectedText));

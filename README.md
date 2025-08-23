@@ -76,14 +76,14 @@ This repository uses **GitHub Actions** to run Selenium/TestNG UI tests on every
 
 ### What the workflow does
 - Checks out the repo
-- Sets up **Temurin Java 21**
+- Sets up **Temurin Java 17**
 - Caches the **Maven** repository for faster runs
 - Installs **Chrome** and **Firefox** on `ubuntu-latest`
 - Runs the TestNG suite via `mvn -B -q test`  
   *(Surefire picks up `src/test/resources/testing.xml`)*
 - Uploads artifacts:
     - `target/surefire-reports` (JUnit XML)
-    - `test-output` (TestNG HTML), if present
+    - `test-output` (TestNG HTML)
 
 ### Browsers / parallelism
 - Tests run **headless** in **Chrome** and **Firefox** via TestNG `@Factory` (parallel instances).
@@ -95,4 +95,4 @@ This repository uses **GitHub Actions** to run Selenium/TestNG UI tests on every
 
 ### Local run (before pushing)
 ```bash
-mvn -B test
+  mvn -B test
